@@ -149,28 +149,29 @@ function chooseRandomColor() {
 
 function makeDarker(e) {
     let currentBrightness = e.target.style.filter;
-    currentBrightness = currentBrightness.substring(11, 13);
+    currentBrightness = currentBrightness.substring(11, 16);
+    currentBrightness = parseInt(currentBrightness);
     console.log(currentBrightness);
-    if (!currentBrightness) {
+    if (isNaN(currentBrightness)) {
         e.target.style.filter = 'brightness(80%)';
         return;
     }
     if (currentBrightness === 0) return;
     let newBrightness = currentBrightness - 20;
+    console.log(newBrightness)
     e.target.style.filter = `brightness(${newBrightness}%)`;
 }
 
 function makeBrighter(e) {
     let currentBrightness = e.target.style.filter;
-    currentBrightness = currentBrightness.substring(11, 13);
-    if (!currentBrightness) {
+    currentBrightness = currentBrightness.substring(11, 16);
+    currentBrightness = parseInt(currentBrightness);
+    console.log(currentBrightness)
+    if (isNaN(currentBrightness)) {
+        e.target.style.filter = 'brightness(120%)';
         return;
     }
-    if (currentBrightness == 100) return;
+    if (currentBrightness == 200) return;
     let newBrightness = parseInt(currentBrightness) + 20;
     e.target.style.filter = `brightness(${newBrightness}%)`;
-}
-
-function checkTools() {
-
 }
