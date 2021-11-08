@@ -1,0 +1,1 @@
+Using vanilla JS, I am making a version of the classic game Etch-a-Sketch.
