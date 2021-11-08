@@ -1,22 +1,27 @@
 .grid {
     text-align: center;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none; 
 }
 
 #container {
-    width: 1000px;
-    height: 1000px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    padding: 12px;
+    align-self: center;
 }
 
 body {
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 12px;
+    height: 90vh;
+    box-sizing: border-box;
 }
 
 #start {
@@ -25,9 +30,35 @@ body {
     align-items: center;
     justify-content: center;
     gap: 12px;
+    padding: 50px 0px;
 }
 
 p, h1, input {
     margin: 0;
     padding: 0;
+}
+
+.content {
+    display: flex;
+    gap: 16px;
+}
+
+.tools {
+    min-width: 100px;
+    text-align: center;
+    background-color: grey;
+    align-self: center;
+    min-height: 600px;
+}
+
+button {
+    background-color: inherit;
+    border: none;
+}
+
+.toolBtns {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
 }

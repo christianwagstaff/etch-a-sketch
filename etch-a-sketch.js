@@ -5,18 +5,18 @@ gridButton.addEventListener('click', changeGrid);
 
 let gridLength = 10;
 let maxGridLength = 100;
-const FULLGRID = 1000;
+const fullGrid = 500;
 
 createGrid(gridLength);
 addColorEvent();
 
 function changeColor(e) {
-    console.log(e.target);
-    e.target.style.backgroundColor = 'blue';
+    e.target.style.backgroundColor = chooseRandomColor();
+    makeDarker(e);
 }
 
 function findGridSize(gridLength) {
-    return Math.floor(FULLGRID / gridLength);
+    return Math.floor(fullGrid / gridLength);
 }
 
 function changeGrid() {
@@ -35,6 +35,8 @@ function removeAllChildNodes(parent) {
 }
 
 function createGrid(gridHeight) {
+    container.style.height = `${fullGrid}px`;
+    container.style.width = `${fullGrid}px`;
     for (let i = 0; i < gridHeight**2; i++) {
         let gridSize;
         let grid = document.createElement('div');
@@ -55,7 +57,6 @@ function addColorEvent() {
 function getUserGridSize() {
     let gridSize = parseInt(prompt('What Size Do You Want?'));
     if (!gridSize) {
-        alert("You didn't enter a valid number!");
         return
     };
     if (gridSize > maxGridLength) {
@@ -63,4 +64,24 @@ function getUserGridSize() {
         return;
     }
     return gridSize;
+}
+
+function chooseRandomColor() {
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+    let rgb = `rgb(${r}, ${g}, ${b})`;
+    return rgb;
+}
+
+function makeDarker(e) {
+    let currentBrightness = e.target.style.filter;
+    currentBrightness = currentBrightness.substring(11, 13);
+    if (!currentBrightness) {
+        e.target.style.filter = 'brightness(80%)';
+        return;
+    }
+    if (currentBrightness === 0) return;
+    let newBrightness = currentBrightness - 20;
+    e.target.style.filter = `brightness(${newBrightness}%)`;
 }
