@@ -16,13 +16,36 @@
         <div class="tools">
             <h2>Tools</h2>
             <div class='toolBtns'>
-                <button id='gridSubmit'>Grid Size</button>
-                <button id='randomColor'>Random</button>
-                <button id='blueColor'>Blue</button>
+                <button id='gridSubmit'>Change Grid Size</button>
+                <div class="container">
+                    <label for='colorWell'>Color:</label>
+                    <input type='color', value='#000' id='colorWell'>
+                </div>
+                <div class='container'>
+                    Pencil
+                    <label class='switch'>
+                        <input type='checkbox' id='userColor'>
+                        <span class='slider round'></span>
+                    </label>
+                </div>
+                <div class='container'>
+                    Randomizer
+                    <label class='switch'>
+                        <input type='checkbox' id='randomColor'>
+                        <span class='slider round'></span>
+                    </label>
+                </div>
                 <div class='container'>
                     Darken
                     <label class='switch'>
                         <input type='checkbox' id='darkenColor'>
+                        <span class='slider round'></span>
+                    </label>
+                </div>
+                <div class='container'>
+                    Brighten
+                    <label class='switch'>
+                        <input type='checkbox' id='brightenColor'>
                         <span class='slider round'></span>
                     </label>
                 </div>

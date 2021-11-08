@@ -17,10 +17,10 @@
 
 .container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 12px;
-    padding: 12px;
+    width: 90%;
 }
 
 body {
@@ -52,16 +52,19 @@ p, h1, input {
 }
 
 .tools {
-    min-width: 100px;
+    min-width: 200px;
     text-align: center;
     background-color: grey;
     align-self: center;
     min-height: 600px;
+    font-size: 16px;
 }
 
 button {
     background-color: inherit;
     border: none;
+    cursor: pointer;
+    font-size: inherit;
 }
 
 .toolBtns {
