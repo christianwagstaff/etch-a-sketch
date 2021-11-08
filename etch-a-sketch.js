@@ -1,22 +1,34 @@
 const container = document.getElementById('container');
 const gridButton = document.getElementById('gridSubmit');
+const darkenSlider = document.getElementById('darkenColor');
 
 gridButton.addEventListener('click', changeGrid);
+darkenSlider.addEventListener('change', addDarkener);
 
+//starting units for grid
 let gridLength = 10;
 let maxGridLength = 100;
-const fullGrid = 500;
+let fullGrid = 500;
 
 createGrid(gridLength);
-addColorEvent();
+addColorEvent(randomColor);
 
-function changeColor(e) {
+function randomColor(e) {
     e.target.style.backgroundColor = chooseRandomColor();
-    makeDarker(e);
+}
+
+function addDarkener(e) {
+    console.log(darkenSlider.checked);
+    if (!darkenSlider.checked) {
+        removeColorEvent(makeDarker);
+        return;
+    }
+    addColorEvent(makeDarker);
 }
 
 function findGridSize(gridLength) {
-    return Math.floor(fullGrid / gridLength);
+    let gridSize = Math.floor(fullGrid / gridLength);
+    return gridSize;
 }
 
 function changeGrid() {
@@ -25,7 +37,8 @@ function changeGrid() {
     if (!gridSize) return;
     removeAllChildNodes(container);
     createGrid(gridSize);
-    addColorEvent();
+    addColorEvent(changeColor);
+    addColorEvent(addDarkener);
 }
 
 function removeAllChildNodes(parent) {
@@ -35,27 +48,34 @@ function removeAllChildNodes(parent) {
 }
 
 function createGrid(gridHeight) {
+    let tempGridSize = findGridSize(gridHeight);
+    let fullGrid = tempGridSize * gridHeight;
     container.style.height = `${fullGrid}px`;
     container.style.width = `${fullGrid}px`;
     for (let i = 0; i < gridHeight**2; i++) {
         let gridSize;
         let grid = document.createElement('div');
-        grid.classList.add('grid');
         gridSize = findGridSize(gridHeight);
+        grid.classList.add('grid');
         grid.style.height = `${gridSize}px`;
         grid.style.width = `${gridSize}px`;
-        grid.textContent = '*';
+        //grid.textContent = '*';
         container.appendChild(grid);
     }
 }
 
-function addColorEvent() {
+function addColorEvent(color) {
     let grids = document.querySelectorAll('.grid');
-    grids.forEach(e1 => e1.addEventListener('mouseover', changeColor));
+    grids.forEach(e1 => e1.addEventListener('mouseover', color));
+}
+
+function removeColorEvent(color) {
+    let grids = document.querySelectorAll('.grid');
+    grids.forEach(e1 => e1.removeEventListener('mouseover', color));
 }
 
 function getUserGridSize() {
-    let gridSize = parseInt(prompt('What Size Do You Want?'));
+    gridSize = parseInt(prompt('What Size Do You Want?'));
     if (!gridSize) {
         return
     };
@@ -84,4 +104,8 @@ function makeDarker(e) {
     if (currentBrightness === 0) return;
     let newBrightness = currentBrightness - 20;
     e.target.style.filter = `brightness(${newBrightness}%)`;
+}
+
+function resetGrid() {
+
 }
