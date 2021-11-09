@@ -58,6 +58,8 @@ p, h1, input {
     align-self: center;
     min-height: 600px;
     font-size: 16px;
+    display: flex;
+    flex-direction: column;
 }
 
 button {
@@ -72,6 +74,7 @@ button {
     flex-direction: column;
     gap: 12px;
     align-items: center;
+    flex-grow: 1;
 }
 
 .switch {
@@ -133,4 +136,14 @@ input:checked + .slider:before {
 
 .slider.round:before {
     border-radius: 50%;
+}
+
+#clearGrid {
+margin-bottom: 32px;
+}
+
+.gridDisplay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

@@ -16,7 +16,6 @@
         <div class="tools">
             <h2>Tools</h2>
             <div class='toolBtns'>
-                <button id='gridSubmit'>Change Grid Size</button>
                 <div class="container">
                     <label for='colorWell'>Color:</label>
                     <input type='color', value='#000' id='colorWell'>
@@ -25,6 +24,13 @@
                     Pencil
                     <label class='switch'>
                         <input type='checkbox' id='userColor'>
+                        <span class='slider round'></span>
+                    </label>
+                </div>
+                <div class='container'>
+                    Eraser
+                    <label class='switch'>
+                        <input type='checkbox' id='eraser'>
                         <span class='slider round'></span>
                     </label>
                 </div>
@@ -50,8 +56,14 @@
                     </label>
                 </div>
             </div>
+            <div>
+                <button id='clearGrid'>Clear Board</button>
+            </div>
         </div>
-        <div id="container">
+        <div class="gridDisplay">
+            <div id="container">
+            </div>
+            <h2><button id='gridSubmit'>10 x 10</button></h2>
         </div>
     </div>
 </body>

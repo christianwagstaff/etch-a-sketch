@@ -3,22 +3,26 @@ const gridButton = document.getElementById('gridSubmit');
 const darkenSlider = document.getElementById('darkenColor');
 const randomColorSider = document.getElementById('randomColor');
 const colorSelector = document.getElementById('colorWell');
-const userColorSlider = document.getElementById('userColor');
+const pencilSlider = document.getElementById('userColor');
 const brightenSlider = document.getElementById('brightenColor');
+const eraserSlider = document.getElementById('eraser');
+const clearGridBtn = document.getElementById('clearGrid');
 
 gridButton.addEventListener('click', changeGrid);
 darkenSlider.addEventListener('change', toggleDarkener);
 brightenSlider.addEventListener('change', toggleBrightner);
 randomColorSider.addEventListener('change', toggleRandomColorizer)
 colorSelector.addEventListener('change', userColor);
-userColorSlider.addEventListener('change', toggleUserColor);
+pencilSlider.addEventListener('change', toggleUserColor);
+eraserSlider.addEventListener('change', toggleEraser);
+clearGridBtn.addEventListener('click', resetBoard);
 
 //starting units for grid
-let gridLength = 10;
+let gridSize = 10;
 let maxGridLength = 100;
 let fullGrid = 500;
 
-createGrid(gridLength);
+createGrid(gridSize);
 
 function randomColor(e) {
     e.target.style.backgroundColor = chooseRandomColor();
@@ -32,22 +36,41 @@ function userColor(e) {
     e.target.style.backgroundColor = getCurrentColor();
 }
 
+function eraser(e) {
+    e.target.style.backgroundColor = 'white';
+    e.target.style.filter = 'brightness(100%)';
+}
+
 function toggleUserColor() {
-    if (!userColorSlider.checked) {
+    if (!pencilSlider
+    .checked) {
         removeColorEvent(userColor);
         return;
     }
     randomColorSider.checked = false;
     removeColorEvent(randomColor);
+    eraserSlider.checked = false;
+    removeColorEvent(eraser);
     addColorEvent(userColor);
 }
 
+function toggleEraser() {
+    if (!eraserSlider.checked) {
+        removeColorEvent(eraser);
+        return;
+    }
+    randomColorSider.checked = false;
+    pencilSlider.checked = false;
+    removeColorEvent(randomColor);
+    removeColorEvent(userColor);
+    addColorEvent(eraser);
+}
+
 function changeColor() {
-    if (userColorSlider.checked) {
+    if (pencilSlider.checked) {
         removeColorEvent(userColor);
         addColorEvent(userColor);
     }
-    
 }
 
 function toggleRandomColorizer() {
@@ -55,8 +78,10 @@ function toggleRandomColorizer() {
         removeColorEvent(randomColor);
         return;
     }
-    userColorSlider.checked = false;
+    pencilSlider.checked = false;
     removeColorEvent(userColor);
+    eraserSlider.checked = false;
+    removeColorEvent(eraser);
     addColorEvent(randomColor);
 }
 
@@ -90,8 +115,7 @@ function changeGrid() {
     if (!gridSize) return;
     removeAllChildNodes(container);
     createGrid(gridSize);
-    toggleRandomColorizer();
-    toggleDarkener();
+    removeTools();
 }
 
 function removeAllChildNodes(parent) {
@@ -105,6 +129,7 @@ function createGrid(gridHeight) {
     let fullGrid = tempGridSize * gridHeight;
     container.style.height = `${fullGrid}px`;
     container.style.width = `${fullGrid}px`;
+    gridButton.innerText = `${gridHeight} x ${gridHeight}`;
     for (let i = 0; i < gridHeight**2; i++) {
         let gridSize;
         let grid = document.createElement('div');
@@ -112,6 +137,7 @@ function createGrid(gridHeight) {
         grid.classList.add('grid');
         grid.style.height = `${gridSize}px`;
         grid.style.width = `${gridSize}px`;
+        grid.style.backgroundColor = 'white';
         //grid.textContent = '*';
         container.appendChild(grid);
     }
@@ -128,14 +154,15 @@ function removeColorEvent(color) {
 }
 
 function getUserGridSize() {
-    gridSize = parseInt(prompt('What Size Do You Want?'));
-    if (!gridSize) {
+    userGridSize = parseInt(prompt('What Size Do You Want?'));
+    if (!userGridSize) {
         return
     };
-    if (gridSize > maxGridLength) {
+    if (userGridSize > maxGridLength) {
         alert(`Too big! Max Size is ${maxGridLength}.`);
         return;
     }
+    gridSize = userGridSize;
     return gridSize;
 }
 
@@ -174,4 +201,23 @@ function makeBrighter(e) {
     if (currentBrightness == 200) return;
     let newBrightness = parseInt(currentBrightness) + 20;
     e.target.style.filter = `brightness(${newBrightness}%)`;
+}
+
+function resetBoard() {
+    removeAllChildNodes(container);
+    createGrid(gridSize);
+    removeTools();
+}
+
+function removeTools() {
+    randomColorSider.checked = false;
+    pencilSlider.checked = false;
+    eraserSlider.checked = false;
+    darkenSlider.checked = false;
+    brightenSlider.checked = false;
+    removeColorEvent(randomColor);
+    removeColorEvent(userColor);
+    removeColorEvent(eraser);
+    removeColorEvent(makeDarker);
+    removeColorEvent(makeBrighter);
 }
